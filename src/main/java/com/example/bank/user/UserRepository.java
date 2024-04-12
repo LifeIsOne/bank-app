@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Query("""
-        SELECT u 
+        SELECT u
         FROM User u
         WHERE u.username = :username AND u.password = :password
         """)
