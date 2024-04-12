@@ -22,7 +22,7 @@ public class User {
     private String fullname;
 
     @CreationTimestamp // pc -> db (날짜주입)
-    private LocalDateTime createdAt;    // 이제 Timestamp 그만
+    private LocalDateTime createdAt;
 
     @Builder
     public User(Integer id, String username, String password, String fullname, LocalDateTime createdAt) {

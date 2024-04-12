@@ -27,11 +27,3 @@ public class SessionUser {
         this.createdAt = user.getCreatedAt();
     }
 }
-
-
-
-
-
-
-
-
