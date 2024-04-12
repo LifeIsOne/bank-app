@@ -10,7 +10,7 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
 
 
     @Query("""
-    SELECT ac 
+    SELECT ac
     FROM Account ac
     JOIN FETCH ac.user
     WHERE ac.user.id = :userId
