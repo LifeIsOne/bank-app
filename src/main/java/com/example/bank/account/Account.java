@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 @Table(name = "account_tb")
 @Entity
@@ -33,10 +33,10 @@ public class Account {
 
     private Boolean status ; // 계좌 활성화 여부, 계좌 삭제하면 false 상태가 됨. 계좌를 조회할 때는 true 인 것 만 조회
     @CreationTimestamp
-    private LocalDateTime createdAt;
+    private Timestamp createdAt;
 
     @Builder
-    public Account(Long id, User user, Integer number, String password, Long balance, Boolean status, LocalDateTime createdAt) {
+    public Account(Long id, User user, Integer number, String password, Long balance, Boolean status, Timestamp createdAt) {
         this.id = id;
         this.user = user;
         this.number = number;
