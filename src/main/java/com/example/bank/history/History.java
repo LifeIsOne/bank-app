@@ -1,7 +1,6 @@
 package com.example.bank.history;
 
 import com.example.bank.account.Account;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
@@ -20,7 +19,7 @@ public class History {
     private Long id;
 
     // SELECT * FROM history_tb WHERE sender = 1111 or receiver = 1111;
-    @JsonIgnoreProperties({"user"}) // 테스트할 때 JSON으로 인식 안시키는 어노테이션
+//    @JsonIgnoreProperties({"user"}) // 테스트할 때 JSON으로 인식 안시키는 어노테이션
     @ManyToOne(fetch = FetchType.LAZY)
     private Account sender;                 // 보낸 사람
 
