@@ -1,6 +1,7 @@
 package com.example.bank.account;
 
-
+import com.example.bank._core.errors.exception.Exception400;
+import com.example.bank._core.utils.MyFormatUtil;
 import com.example.bank.user.User;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -10,30 +11,42 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 
+@NoArgsConstructor
+@Data
 @Table(name = "account_tb")
 @Entity
-@Data
-@NoArgsConstructor
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id ; //pr키
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private User user; //유저 정보
+    private User user;
 
-    @Column(unique = true,nullable = false,length = 4)
-    private Integer number ; // 계좌번호
+    @Column(unique = true, nullable = false, length = 4)
+    private Integer number; // 1111, 2222
 
-    @Column(nullable = false,length = 4)
-    private String password; // 비밀번호
+    @Column(nullable = false, length = 4)
+    private String password;
 
     @Column(nullable = false)
-    private Long balance; //잔액
+    private Long balance;
 
-    private Boolean status ; // 계좌 활성화 여부, 계좌 삭제하면 false 상태가 됨. 계좌를 조회할 때는 true 인 것 만 조회
+    @Column(nullable = false)
+    private Boolean status; // true, false
+
     @CreationTimestamp
     private Timestamp createdAt;
+
+    // 출금
+    public void withdraw(Long amount) {
+        this.balance = this.balance - amount;
+    }
+
+    // 입금
+    public void deposit(Long amount) {
+        this.balance = this.balance + amount;
+    }
 
     @Builder
     public Account(Long id, User user, Integer number, String password, Long balance, Boolean status, Timestamp createdAt) {
@@ -44,5 +57,14 @@ public class Account {
         this.balance = balance;
         this.status = status;
         this.createdAt = createdAt;
+    }
+
+    public void lackCheck(Long amount) {
+        if (balance < amount) {
+            Long lackAmount = balance - amount;
+            lackAmount = Math.abs(lackAmount);
+
+            throw new Exception400("출금할 잔액이 부족합니다 : " + MyFormatUtil.moneyFormat(lackAmount));
+        }
     }
 }
