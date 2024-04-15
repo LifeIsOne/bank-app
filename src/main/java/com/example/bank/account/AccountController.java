@@ -14,6 +14,8 @@ public class AccountController {
     private final AccountService accountService;
     private final HttpSession session;
 
+
+
     @GetMapping("/api/accounts")
     public ResponseEntity<?> accountList(){
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
